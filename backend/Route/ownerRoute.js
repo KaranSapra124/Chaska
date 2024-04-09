@@ -4,6 +4,7 @@ const {
   getUser,
   uploadImage,
   addProduct,
+  getProduct,
 } = require("../Controller/ownerController");
 const route = express.Router();
 const upload = require("../utils/multerCode");
@@ -16,6 +17,7 @@ route.post("/upload-img", upload.single("userPic"), uploadImage);
 
 route.post("/log-user", getUser);
 
-route.post("/upload-product", uploadArray.array("mealImages"),uploadImage);
+route.post("/upload-product", uploadArray.array("mealImages"), uploadImage);
 route.post("/add-product", addProduct);
+route.get("/get-product", getProduct);
 module.exports = route;

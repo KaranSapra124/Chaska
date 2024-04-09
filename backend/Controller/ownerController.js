@@ -57,3 +57,10 @@ exports.addProduct = async (req, res, next) => {
 
   res.status(200).send({ message: "Success", NewMeal });
 };
+exports.getProduct = async (req, res, next) => {
+  const products = await meal.find();
+  if (!products) {
+    throw new Error("No Meals Found!");
+  }
+  res.status(200).send({ message: "Success", products:products });
+};
