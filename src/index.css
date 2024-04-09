@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .bgimage {
-  background: url("FoodBanner.jpg");
+  background: url("../public/FoodBanner.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
