@@ -15,6 +15,7 @@ const OwnerLayout = () => {
         onClick={() => {
           // console.log("Clicked");
           setIsSidebarOpen(!isSidebarOpen);
+          console.log(isSidebarOpen);
         }}
       >
         <span className="sr-only">Open sidebar</span>
@@ -33,26 +34,35 @@ const OwnerLayout = () => {
         </svg>
       </button>
 
-      <div className="flex justify-evenly">
+      <div className="flex ">
         <aside
           id="sidebar-multi-level-sidebar"
-          className={
-            isSidebarOpen
-              ? `bg-black fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0`
-              : `bg-black  fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0`
-          }
+          // className={
+          //   isSidebarOpen &&
+          //   `bg-black text-white left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0`
+          // }
+          className=""
           aria-label="Sidebar"
         >
           {/* Sidebar content */}
-          <div className="bg-transparent text-white flex flex-col w-fit p-2">
+          <div
+            className={` ${
+              isSidebarOpen &&
+              "bg-transparent bg-black text-white flex flex-col w-full md:w-fit p-2"
+            } ${
+              !isSidebarOpen &&
+              " bg-black text-white w-full md:w-auto flex flex-col p-2 text-xl font-semibold h-lvh"
+            }`}
+          >
+            <button className="pb-4">Orders</button>
             <button
+              className="pb-4"
               onClick={() => {
                 navigate("/owner/dashboard/products");
               }}
             >
-              Orders
+              Products
             </button>
-            <button>Products</button>
           </div>
         </aside>
         <Outlet />

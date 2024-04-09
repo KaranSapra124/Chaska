@@ -40,6 +40,12 @@ const ownerMethod = async (route, formData, setOwner) => {
       formData
     );
     console.log(res);
+  } else if (route === "/get-product") {
+    let res = await axios.get(
+      `${import.meta.env.VITE_Backend_Url}/admin${route}`
+    );
+    console.log(res)
+    setOwner(res?.data?.products);
   }
 };
 

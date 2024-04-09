@@ -10,7 +10,7 @@ export const ProductCard = () => {
   return (
     <>
       <div className="flex flex-wrap">
-        {product?.length !== 0 &&
+        {product?.length !== 0 ? (
           product.map((elem, index) => {
             return (
               <>
@@ -87,7 +87,10 @@ export const ProductCard = () => {
                 </div>
               </>
             );
-          })}
+          })
+        ) : (
+          <h1 className="m-auto mt-52 mb-20 text-2xl border-2 p-2 bg-pink-500 text-white rounded border-none">Nothing To Show!</h1>
+        )}
       </div>
     </>
   );

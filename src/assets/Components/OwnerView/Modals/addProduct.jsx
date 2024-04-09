@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
+import { useToast } from "@chakra-ui/react";
 import ownerMethod from "../Methods/ownerMethod";
 
 const AddProductModal = () => {
@@ -28,6 +28,8 @@ const AddProductModal = () => {
     mealImages: [],
     mealPrice: "",
   });
+
+  const Toast = useToast();
 
   const handleFileChange = (event) => {
     const files = event.target.files;
@@ -48,6 +50,14 @@ const AddProductModal = () => {
 
   const handleUploadProduct = async () => {
     await ownerMethod("/add-product", formData, null);
+    Toast({
+      title: "Product Added!",
+      description: "Your Product is Added",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+    onClose();
   };
 
   const handleChangeInput = (e) => {
@@ -66,6 +76,7 @@ const AddProductModal = () => {
         bg={"red"}
         color={"white"}
         _hover={{ bg: "gray" }}
+        width={"fit-content"}
         onClick={onOpen}
       >
         Add New
