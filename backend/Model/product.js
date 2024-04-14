@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
+const Admin = require("./Admin");
 
 const mealSchema = schema({
+  adminId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Admin",
+  },
   mealName: {
     type: String,
     required: "Please add product name!",
@@ -19,6 +24,10 @@ const mealSchema = schema({
   mealCategory: {
     type: String,
     required: "Please enter the category",
+  },
+  mealDescription: {
+    type: String,
+    required: "Please Fill Description!",
   },
 });
 

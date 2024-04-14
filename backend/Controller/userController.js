@@ -31,7 +31,7 @@ exports.getUser = async (req, res, next) => {
     const { email } = req.body;
     // console.log(`"${userEmail}"`);
     const foundUser = await User.findOne({ email: email });
-    console.log(foundUser, ">................");
+    // console.log(foundUser, ">................");
     res.status(200).send(foundUser);
   }
 };
