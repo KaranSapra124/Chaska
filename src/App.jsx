@@ -13,8 +13,18 @@ import { useLocation } from "react-router-dom";
 // import AddProductModal from "../src/assets/Components/OwnerView/Modals/addProduct";
 import { ProductLayout } from "./assets/Components/OwnerView/Components/productLayout";
 import { ProductCard } from "./assets/Components/UserView/Pages/ProductCard";
+import { ProductDetails } from "./assets/Components/UserView/Pages/individualCard";
+import { Cart } from "./assets/Components/UserView/Cart";
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "../src/assets/utils/cartSlice";
+import { Provider } from "react-redux";
 
 function App() {
+  const store = configureStore({
+    reducer: {
+      cart: cartReducer,
+    },
+  });
   const [profile, setProfile] = useState(1);
   const [ownerprofile, setOwnerProfile] = useState("Hello");
   // const location = useLocation();
@@ -34,6 +44,10 @@ function App() {
         {
           path: "/About",
           element: <AboutUs />,
+        },
+        {
+          path: "/Product",
+          element: <ProductDetails />,
         },
         {
           path: "/SignIn",
@@ -78,7 +92,9 @@ function App() {
         <userProfile.Provider
           value={{ profile: profile, setProfile: setProfile }}
         >
-          <RouterProvider router={routes}></RouterProvider>
+          <Provider store={store}>
+            <RouterProvider router={routes}></RouterProvider>
+          </Provider>
         </userProfile.Provider>
       </ownerProfile.Provider>
     </>
