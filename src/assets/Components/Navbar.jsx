@@ -3,6 +3,7 @@ import { SignInModal } from "./UserView/Modals/SignInModal";
 import { LogInModal } from "./UserView/Modals/LoginModal";
 import { useState } from "react";
 import Footer from "./Footer";
+import { Cart } from "./UserView/Cart";
 
 export const Navbar = () => {
   const [bool, setBool] = useState(false);
@@ -180,7 +181,7 @@ dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:bo
                   to="/meals"
                   className="block text-xl font-semibold py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
-                 Meals
+                  Meals
                 </Link>
               </li>
               <li>
@@ -190,6 +191,9 @@ dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:bo
                 >
                   Profile
                 </Link>
+              </li>
+              <li className="block text-xl font-semibold py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                <Cart />
               </li>
             </ul>
           </div>

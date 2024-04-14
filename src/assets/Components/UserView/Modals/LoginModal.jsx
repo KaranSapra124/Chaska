@@ -72,6 +72,20 @@ export const LogInModal = () => {
     }
   };
 
+  useEffect(() => {
+    if (path && document.cookie.includes("adminId")) {
+      const result = ownerMethod("/log-user", null, setProfile);
+      if (result) {
+        navigate("/owner/Profile");
+        toast({
+          title: "Logged in succesfully!",
+          status: "success",
+          isClosable: true,
+        });
+      }
+    }
+  }, []);
+
   return (
     <>
       <div

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ownerMethod from "../Methods/ownerMethod";
 import { useTable } from "react-table";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 export const TableLayout = () => {
   const [data, setData] = useState([]);
@@ -10,6 +11,29 @@ export const TableLayout = () => {
 
   const columns = useMemo(
     () => [
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: ({ row }) => (
+          <div className="flex justify-center items-center">
+            <button
+              className="mr-5"
+              onClick={() => {
+                handleEdit(row.original._id);
+                // console.log(row.original._id);
+              }}
+            >
+              <FaEdit />
+            </button>
+            <button
+              className="mr-5"
+              onClick={() => handleDelete(row.original._id)}
+            >
+              <FaTrash />
+            </button>
+          </div>
+        ),
+      },
       {
         Header: "ID",
         accessor: "_id",

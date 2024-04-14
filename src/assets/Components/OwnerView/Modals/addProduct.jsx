@@ -27,6 +27,7 @@ const AddProductModal = () => {
     mealCategory: "",
     mealImages: [],
     mealPrice: "",
+    mealDescription:""
   });
 
   const Toast = useToast();
@@ -41,6 +42,7 @@ const AddProductModal = () => {
     uploadedFiles.forEach((file) => {
       PicData.append("mealImages", file);
     });
+    // console.log(PicData);
     ownerMethod("/upload-product", PicData, setFormData, {
       headers: {
         "Content-Type": "multipart/form-data", // Important for Multer to parse correctly
@@ -161,6 +163,16 @@ const AddProductModal = () => {
               <Input
                 placeholder="Product price"
                 name="mealPrice"
+                onChange={(e) => {
+                  handleChangeInput(e);
+                }}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Product Description</FormLabel>
+              <Input
+                placeholder="Product Description.."
+                name="mealDescription"
                 onChange={(e) => {
                   handleChangeInput(e);
                 }}

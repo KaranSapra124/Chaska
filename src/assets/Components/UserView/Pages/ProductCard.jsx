@@ -1,35 +1,81 @@
 import React, { useState, useEffect } from "react";
 import userMethod from "../Method/UserMethod";
+import { useNavigate } from "react-router-dom";
+import { Select } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, removeItem } from "../../../utils/cartSlice";
 
 export const ProductCard = () => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+  const navigate = useNavigate();
   const [product, setProducts] = useState([]);
   let str = "⭐";
+  const handleShow = (prod) => {
+    navigate("/Product", {
+      state: prod,
+    });
+  };
   useEffect(() => {
     userMethod("/get-products", null, setProducts);
   }, []);
+
   return (
     <>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
+        <div className="flex justify-center border  flex-auto w-full h-fit ">
+          <Select placeholder="Select a cuisine" className="transition-all duration-1000 mt-1 mb-1 w-56 py-2 px-4 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500">
+            {filterCuisines.map((elem, index) => {
+              return (
+                <option key={index} value={elem}>
+                  {elem}
+                </option>
+              );
+            })}
+          </Select>
+          <Select placeholder="Select a Price" className="transition-all duration-1000 mt-1 mb-1 w-56  py-2 px-4 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500">
+            {filterPrice.map((elem, index) => {
+              return (
+                <option key={index} value={elem}>
+                  {elem}
+                </option>
+              );
+            })}
+          </Select>
+          {/* <Select className="transition-all duration-1000 mt-1 mb-1 w-56  py-2 px-4 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500">
+            {filterCuisines.map((elem, index) => {
+              return (
+                <option key={index} value={elem}>
+                  {elem}
+                </option>
+              );
+            })}
+          </Select> */}
+        </div>
+
         {product?.length !== 0 ? (
           product.map((elem, index) => {
             return (
               <>
-                <div className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-                  <a
+                <div
+                  onClick={() => {
+                    handleShow(elem);
+                  }}
+                  className=" relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-lg"
+                >
+                  {/* <a
                     className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
                     href="#"
-                  >
-                    <img
-                      className="object-cover"
-                      src={`${import.meta.env.VITE_Image_Url}/${
-                        elem.mealImages[0]
-                      }`}
-                      alt="product image"
-                    />
-                    {/* <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+                  > */}
+                  <img
+                    className="object-fit h-52"
+                    src={elem.mealImages[0]}
+                    alt="product image"
+                  />
+                  {/* <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
                     39% OFF
                   </span> */}
-                  </a>
+                  {/* </a> */}
                   <div className="mt-4 px-5 pb-5">
                     <a href="#">
                       <h5 className="text-xl tracking-tight text-slate-900">
@@ -63,9 +109,14 @@ export const ProductCard = () => {
                         </span>
                       </div>
                     </div>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                    <span class="bg-black text-gray-200 text-xs font-medium  px-2.5 py-0.5 rounded">
+                      {elem?.mealCategory}
+                    </span>
+                    <button
+                      onClick={() => {
+                        dispatch(addItem(elem));
+                      }}
+                      className="mt-2 w-full flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -82,16 +133,22 @@ export const ProductCard = () => {
                         />
                       </svg>
                       Add to cart
-                    </a>
+                    </button>
                   </div>
                 </div>
               </>
             );
           })
         ) : (
-          <h1 className="m-auto mt-52 mb-20 text-2xl border-2 p-2 bg-pink-500 text-white rounded border-none">Nothing To Show!</h1>
+          <h1 className="m-auto mt-52 mb-20 text-2xl border-2 p-2 bg-pink-500 text-white rounded border-none">
+            Nothing To Show!
+          </h1>
         )}
       </div>
     </>
   );
 };
+
+const filterCuisines = ["Non Veg", "Veg", "Chinese", "Italian"];
+const filterPrice = ["500","1000","1500","2000"];
+// const filter = ["Non Veg", "Veg", "Chinese", "Italian"];

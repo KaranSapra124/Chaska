@@ -9,16 +9,27 @@ const ownerMethod = async (route, formData, setOwner) => {
     );
     console.log(res);
   } else if (route === "/log-user") {
+    let res;
     console.log(formData);
-    let res = await axios.post(
-      `${import.meta.env.VITE_Backend_Url}/admin${route}`,
-      formData
-    );
-    console.log(res);
-    setOwner(res?.data);
-    return res?.data;
+    if (formData !== null) {
+      res = await axios.post(
+        `${import.meta.env.VITE_Backend_Url}/admin${route}`,
+        formData
+      );
+      console.log(res);
+      setOwner(res?.data);
+      return res?.data;
+    } else {
+      res = await axios.post(
+        `${import.meta.env.VITE_Backend_Url}/admin${route}`,
+        formData
+      );
+      console.log(res,'............');
+      setOwner(res?.data);
+      return res?.data;
+    }
   } else if (route === "/upload-img") {
-    console.log(route);
+    console.log(formData);
     let res = await axios.post(
       `${import.meta.env.VITE_Backend_Url}/admin${route}`,
       formData
@@ -30,12 +41,13 @@ const ownerMethod = async (route, formData, setOwner) => {
       `${import.meta.env.VITE_Backend_Url}/admin${route}`,
       formData
     );
+    console.log(res, ".................................");
     setOwner((prev) => ({
       ...prev,
-      mealImages: res?.data,
+      mealImages: res?.data?.img,
     }));
   } else if (route === "/add-product") {
-    let res = axios.post(
+    let res = await axios.post(
       `${import.meta.env.VITE_Backend_Url}/admin${route}`,
       formData
     );
@@ -44,7 +56,7 @@ const ownerMethod = async (route, formData, setOwner) => {
     let res = await axios.get(
       `${import.meta.env.VITE_Backend_Url}/admin${route}`
     );
-    console.log(res)
+    console.log(res);
     setOwner(res?.data?.products);
   }
 };
