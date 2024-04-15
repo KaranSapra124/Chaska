@@ -8,13 +8,24 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import { useDisclosure, Button, Input } from "@chakra-ui/react";
-import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Badge } from "@chakra-ui/react";
+import { saveItem, getItem } from "../../utils/cartSlice";
 
 export const Cart = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  const cartItems = useSelector((state) => state.cart.items);
+  let cartItems = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(saveItem(cartItems));
+  }, [cartItems]);
+
+  // useEffect(() => {
+  //   cartItems = JSON.parse(localStorage.getItem("cart"));
+  // }, []);
 
   return (
     <>
@@ -38,13 +49,21 @@ export const Cart = () => {
           <DrawerBody>
             <Input placeholder="Type here..." />
             <div className="container mx-auto py-8 ">
-             {cartItems.length !== 0 ?  <h1 className="text-3xl font-semibold mb-8">Your Cart</h1> :  <h1 className="text-3xl font-semibold mb-8">Your Cart Is Empty!</h1>}
+              {cartItems.length !== 0 ? (
+                <h1 className="text-3xl font-semibold mb-8 text-center">
+                  Your Cart
+                </h1>
+              ) : (
+                <h1 className="text-3xl font-semibold mb-8">
+                  Your Cart Is Empty!
+                </h1>
+              )}
               <div className=" flex flex-wrap gap-6">
                 {cartItems?.length !== 0 &&
-                  cartItems?.map((product,i) => (
+                  cartItems?.map((product, i) => (
                     <div
                       key={i}
-                      className="bg-white shadow-md rounded-md overflow-hidden"
+                      className="bg-white shadow-md rounded-md overflow-hidden w-full"
                     >
                       <img
                         src={product.mealImages[0]}
@@ -55,41 +74,48 @@ export const Cart = () => {
                         <h2 className="text-lg font-semibold mb-2">
                           {product.mealName}
                         </h2>
-                        <p className="text-gray-600">{product.mealPrice}</p>
+                        <Badge colorScheme="green" className="mb-2">
+                          {product.mealCategory}
+                        </Badge>
+
+                        <p className="text-gray-600 font-semibold">
+                          ₹{product.mealPrice}
+                        </p>
                         <div className="mt-4 flex justify-between items-center">
-                          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                          <button className="mr-2 w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                             Remove
                           </button>
-                          <div>
+                          {/* <div>
                             <button className="bg-gray-200 text-gray-700 px-3 py-1 rounded-md mr-2">
                               -
                             </button>
-                            <span className="px-3">
-                              {/* Quantity */}1{/* Replace with quantity */}
-                            </span>
+                            <span className="px-3"> */}
+                          {/* Quantity1Replace with quantity */}
+                          {/* </span>
                             <button className="bg-gray-200 text-gray-700 px-3 py-1 rounded-md ml-2">
                               +
                             </button>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
                   ))}
               </div>
               <div className="mt-8 flex justify-end">
-             {  cartItems.length !== 0 && <button className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600">
-                  Checkout
-                </button>}
+                {cartItems.length !== 0 && (
+                  <button className="bg-blue-500 w-full hover:font-semibold text-white px-6 py-3 rounded-md hover:bg-blue-600">
+                    Checkout
+                  </button>
+                )}
               </div>
             </div>
-            
           </DrawerBody>
 
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue">Save</Button>
+            {/* <Button colorScheme="blue">Save</Button> */}
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

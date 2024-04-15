@@ -24,8 +24,8 @@ export const Navbar = () => {
               className="h-24"
               alt="Flowbite Logo"
             />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Chaska
+            <span className="italic self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              FoodGun
             </span>
           </Link>
           <div className="flex md:order-2">

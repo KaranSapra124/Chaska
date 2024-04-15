@@ -14,8 +14,8 @@ function Footer() {
               className="h-8"
               alt="Flowbite Logo"
             />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Chaska
+            <span className="italic self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              FoodGun
             </span>
           </a>
           <ul className="flex  flex-wrap items-center mb-6 text-lg max-[400px]:text-sm max-[400px]:justify-center font-medium text-black sm:mb-0 dark:text-gray-400">
