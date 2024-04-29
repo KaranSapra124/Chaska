@@ -53,6 +53,7 @@ exports.uploadImage = async (req, res, next) => {
   }
 };
 exports.addProduct = async (req, res, next) => {
+  console.log(req.body)
   const {
     mealName,
     mealImages,
